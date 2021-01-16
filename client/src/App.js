@@ -10,6 +10,7 @@ import Breakdown from './containers/Breakdown/Breakdown';
 import Timetable from "./components/Timetable";
 import Login from './containers/Login';
 import Register from './containers/Register';
+import Test from './containers/Test'
 
 function App() {
   let [navClass, setNavClass] = useState("")
@@ -29,8 +30,8 @@ function App() {
             <Route exact path="/courses" component={Breakdown}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/register" component={Register}/>
-            {/*<Route exact path="/analytics" component={}/>
-            <Route exact path="/settings" component={}/> */}
+            <Route exact path="/test" component={Test}/>
+            {/*<Route exact path="/settings" component={}/> */}
           </Switch>
           {/* Footer */}
         </BrowserRouter>
