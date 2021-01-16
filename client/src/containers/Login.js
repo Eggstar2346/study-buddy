@@ -21,10 +21,7 @@ export default class Login extends React.Component {
 
         this.state = {
             login: true,
-            register: false
-        };
-
-        this.loginfo = {
+            register: false,
             name: "",
             email: "",
             password: "",
@@ -54,13 +51,13 @@ export default class Login extends React.Component {
                     {this.state.login && <h6>Glad to see you again!</h6>}
                     {this.state.register && <h6>Welcome to Study Buddy!</h6>}
                     <CardBody>
-                        {this.state.register && <FormInput placeholder="Name" update={(e) => (this.loginfo.name = e.target.value)}/>}
+                        {this.state.register && <FormInput placeholder="Name" onChange={(e) => {this.setState({name: e.target.value})}}/>}
                         {this.state.register && <br/>}
-                        <FormInput placeholder="Email" update={(e) => (this.loginfo.email = e.target.value)}/>
+                        <FormInput placeholder="Email" onChange={(e) => {this.setState({email: e.target.value})}}/>
                         <br/>
-                        <FormInput placeholder="Password" update={(e) => (this.loginfo.password = e.target.value)}/>
+                        <FormInput placeholder="Password" onChange={(e) => {this.setState({password: e.target.value})}}/>
                         <br/>
-                        {this.state.register && <FormInput placeholder="Confirm password" update={(e) => (this.loginfo.confpwd = e.target.value)}/>}
+                        {this.state.register && <FormInput placeholder="Confirm password" onChange={(e) => {this.setState({confpwd: e.target.value})}}/>}
                         {this.state.register && <br/>}
                         <ButtonGroup horizontal>
                             <Button theme="light" onClick = {this.onClickLogin}>Login</Button>
