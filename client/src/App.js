@@ -6,6 +6,7 @@ import "shards-ui/dist/css/shards.min.css"
 import styles from './App.module.css';
 import Dashboard from './containers/Dashboard';
 import Navbar from "./components/Navbar";
+import Breakdown from './containers/Breakdown/Breakdown';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {/* <Route exact path="/courses" component={}/>
         <Route exact path="/analytics" component={}/>
         <Route exact path="/settings" component={}/> */}
+        <Route exact path="/Breakdown" component={Breakdown}/>
       </Switch>
       {/* Footer */}
     </BrowserRouter>

@@ -1,9 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const CourseInfo = props => {
-    const [profName, setProfName] = useState("Stark Draper");
-    const [profEmail, setProfEmail] = useState("stark.draper@utoronto.ca")
-    const [TAs, setTas] = useState()
+    return (
+        <div className="CourseInfo">
+            <p>Professor {props.profName}</p>
+            <p>Email: {props.email}</p>
+            {props.TA.map((el, i) => {
+                return (
+                    <div id={i}>
+                        <p>TA: {el.name}</p>
+                        <p>Email: {el.email}</p>
+                    </div>
+                )
+            })}
+        </div>
+    );
 };
 
 export default CourseInfo;
