@@ -22,7 +22,7 @@ export default class RecommendedTasks extends React.Component {
   render() {
     return (
       <div>
-        <p>Select your favorite fruits:</p>
+        <p>Recommended Tasks:</p>
         <FormCheckbox
           checked={this.state.orange}
           onChange={e => this.handleChange(e, "orange")}

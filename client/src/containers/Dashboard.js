@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row, CardBody, CardTitle, CardSubtitle, Badge, CardHeader } from "shards-react";
+import RecommendedTasks from "../components/RecommendedTasks";
 
 function Dashboard (props) {
     const daysOfWeek = ['mon','tues','wed','thurs','fri', 'weekend'] //placeholder
@@ -9,6 +10,7 @@ function Dashboard (props) {
         <Container>
             <br/><br/>
             <Row>
+                <RecommendedTasks/>
                 <Col lg={9}>
                     <Container style={{overflow: 'auto'}}>
                         <Row style={{width: '180%'}}>
