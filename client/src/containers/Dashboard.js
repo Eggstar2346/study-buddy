@@ -3,6 +3,7 @@ import { Card, Col, Container, Row, CardBody, CardTitle, CardSubtitle, Badge, Ca
 import WeeklyOverview from '../components/WeeklyOverview';
 import TimerButtons from './TimerButtons';
 import Timetable from './Timetable';
+import RecommendedTasks from '../components/RecommendedTasks'
 
 function Dashboard (props) {
     const daysOfWeek = ['mon','tues','wed','thurs','fri', 'weekend'] //placeholder
@@ -12,6 +13,7 @@ function Dashboard (props) {
         <Container>
             <br/><br/>
             <Row>
+                <RecommendedTasks/>
                 <Col lg={9}>
                     <WeeklyOverview days={daysOfWeek} tags={tags}/>
                 </Col>
