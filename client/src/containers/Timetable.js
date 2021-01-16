@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } fro
 function Timetable(props){
     return (
         <ListGroup>
-            <h5 style={{textAlign: 'center'}}>Class Schedule</h5>
+            <h5 style={{textAlign: 'center'}}>  Class Schedule</h5>
             <ListGroupItem>Cras justo odio</ListGroupItem>
             <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
             <ListGroupItem>Morbi leo risus</ListGroupItem>
