@@ -1,10 +1,10 @@
 module.exports = (app, pool) => {
     
     app.post('/tasks/addTask', async(req, res) => {
-        const {task_id, course_id, task_type, due_date, completed, grade_weight} = req.body
+        const {task_name, course_id, task_type, due_date, completed, grade_weight, grade} = req.body
         const response = await pool.query(`
-            INSERT INTO tasks (task_id, course_id, task_type, due_date, completed, grade, grade_weight, score, time_completed) 
-            VALUES (${task_id}, ${course_id}, ${task_type}, ${due_date}, ${completed}, NULL, ${grade_weight}, NULL, NULL)
+            INSERT INTO tasks (task_id, task_name, course_id, task_type, due_date, completed, grade, grade_weight, score, time_completed) 
+            VALUES (0, ${task_name}, ${course_id}, ${task_type}, ${due_date}, ${completed}, ${grade}, ${grade_weight}, NULL, NULL)
         `)
         console.log(response)
         if(response) {
