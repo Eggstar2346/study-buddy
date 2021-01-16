@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Col, Container, Row, CardBody, CardTitle, CardSubtitle, Badge, CardHeader } from "shards-react";
 import WeeklyOverview from '../components/WeeklyOverview';
+import TimerButtons from './TimerButtons';
 import Timetable from './Timetable';
 
 function Dashboard (props) {
@@ -15,6 +16,9 @@ function Dashboard (props) {
                     <WeeklyOverview days={daysOfWeek} tags={tags}/>
                 </Col>
                 <Col lg={3}>
+                    <div style={{display:'flex',alignItems:'center', justifyContent: 'center'}}>
+                        <TimerButtons/>
+                    </div>
                     <Timetable/>
                 </Col>
             </Row>
