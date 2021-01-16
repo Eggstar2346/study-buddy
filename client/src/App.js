@@ -7,6 +7,7 @@ import styles from './App.module.css';
 import Dashboard from './containers/Dashboard';
 import Navbar from "./components/Navbar";
 import Breakdown from "./containers/Breakdown";
+import Timetable from "./containers/Timetable"
 
 function App() {
   return (

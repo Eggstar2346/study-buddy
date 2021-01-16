@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row, CardBody, CardTitle, CardSubtitle, Badge, CardHeader } from "shards-react";
+import Timetable from './Timetable';
 
 function Dashboard (props) {
     const daysOfWeek = ['mon','tues','wed','thurs','fri', 'weekend'] //placeholder
@@ -32,7 +33,7 @@ function Dashboard (props) {
                     </Container>
                 </Col>
                 <Col lg={3}>
-
+                    <Timetable/>
                 </Col>
             </Row>
         
