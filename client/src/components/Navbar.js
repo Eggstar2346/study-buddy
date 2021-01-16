@@ -3,23 +3,24 @@ import { Button, ButtonGroup, Nav, NavItem, NavLink } from "shards-react";
 
 export default function Navbar (props) {
     return(
-        <Nav id="sidebar" className={props.state}>
-            <NavItem id="toggle-btn">
-                <Button onClick={props.openNav}> </Button>
-            </NavItem>
+        <div id="sidebar" className={props.toggle}>
+            <div id="toggleBtn">
+                <Button theme="light" onClick={props.openNav}> 💜 </Button>
+            </div>
+            <h6>Actions:</h6>
             <ButtonGroup vertical>
-                <Button> View Full Timetable </Button>
-                <Button> View Course Breakdown </Button>
-                <Button> Scan Syllabus/Course Outline </Button>
-                <Button> Settings </Button>
+                <Button theme="light"> <a href="/"> View Full Timetable </a> </Button>
+                <Button theme="light"> <a href="/"> View Course Breakdown </a> </Button>
+                <Button theme="light"> <a href="/"> Scan Syllabus/Course Outline </a> </Button>
+                <Button theme="light"> <a href="/">Settings </a> </Button>
             </ButtonGroup>
-
-            <h4>Sync to:</h4>
+            <br/><br/><br/>
+            <h6>Sync to:</h6>
             <ButtonGroup vertical>
-                <Button> Google Calendar </Button>
-                <Button> Outlook </Button>
-                <Button> Google Drive </Button>
+                <Button theme="light"> Google Calendar </Button>
+                <Button theme="light"> Outlook </Button>
+                <Button theme="light"> Google Drive </Button>
             </ButtonGroup>
-      </Nav>
+      </div>
     )
 }

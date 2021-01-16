@@ -12,11 +12,11 @@ function Dashboard (props) {
         <Container>
             <br/><br/>
             <Row>
-                <RecommendedTasks/>
                 <Col lg={9}>
                     <WeeklyOverview days={daysOfWeek} tags={tags}/>
                 </Col>
                 <Col lg={3}>
+                    <RecommendedTasks/>
                     <Timetable/>
                 </Col>
             </Row>
