@@ -7,14 +7,15 @@ const cors = require('cors');
 var async = require('async');
 var fs = require('fs');
 var pg = require('pg');
+const config = require('./config.json')
 
 // Connect to the "bank" database.
 var config = {
-    user: 'yagongvo',
-    password: 'password1234',
-    host: 'free-tier.gcp-us-central1.cockroachlabs.cloud',
-    port: 26257,
-    database: 'merry-vole-225.bank',
+    user: config.user,
+    password: config.password,
+    host: config.host,
+    port: config.port,
+    database: config.database,
     ssl: {
         ca: fs.readFileSync('C:\\Users\\histo\\Documents\\cc-ca.crt').toString(),
     }
@@ -22,6 +23,7 @@ var config = {
 
 // Create a pool.
 var pool = new pg.Pool(config);
+
 
 const app = express();
 // require('./services/passport')(passport);
@@ -59,21 +61,9 @@ app.use(express.static(__dirname + '/client/build'));
 // console.log('initialized');
 // app.use(passport.session());
 
-pool.connect(function (err, client, done) {
-    // Close communication with the database and exit.
-    var finish = function () {
-        done();
-        process.exit();
-    };
 
-    if (err) {
-        console.error('could not connect to cockroachdb', err);
-        finish();
-    }
-});
-
-require ('./routes/registerUser')(app);
-require ('./routes/updateUser')(app);
+require ('./routes/registerUser')(app, pool);
+require ('./routes/updateUser')(app, pool);
 
 // All routes other than above will go to index.html
 app.get('*', (req, res) => {
