@@ -12,7 +12,7 @@ import {
   ButtonGroup
 } from "shards-react";
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
     constructor(props) {
         super(props);
 
@@ -20,8 +20,10 @@ export default class Login extends React.Component {
         this.onClickRegister = this.onClickRegister.bind(this);
 
         this.state = {
+            name: "",
             email: "",
-            password: ""
+            password: "",
+            confpwd: ""
         };
     }
 
@@ -42,15 +44,19 @@ export default class Login extends React.Component {
                 <Col md={3}></Col>
                 <Col md={6}>
                 <Card style={{ maxWidth: "800px" }} id="logincard">
-                    <h6>Glad to see you again!</h6>
+                    <h6>Welcome to Study Buddy!</h6>
                     <CardBody>
+                        <FormInput placeholder="Name" onChange={(e) => {this.setState({name: e.target.value})}}/>
+                        <br/>
                         <FormInput placeholder="Email" onChange={(e) => {this.setState({email: e.target.value})}}/>
                         <br/>
                         <FormInput placeholder="Password" onChange={(e) => {this.setState({password: e.target.value})}}/>
                         <br/>
+                        <FormInput placeholder="Confirm password" onChange={(e) => {this.setState({confpwd: e.target.value})}}/>
+                        <br/>
                         <ButtonGroup horizontal>
-                            <Button theme="light" onClick = {this.onClickLogin}>Login</Button>
-                            <Button theme="light" onClick = {this.onClickRegister}><a href="/register">Register &rarr;</a></Button>
+                            <Button theme="light" onClick = {this.onClickLogin}><a href="/login">Login &larr;</a></Button>
+                            <Button theme="light" onClick = {this.onClickRegister}>Register</Button>
                         </ButtonGroup>
                     </CardBody>
                 </Card>
