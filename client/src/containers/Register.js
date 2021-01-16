@@ -55,7 +55,7 @@ export default class Register extends React.Component {
                         <FormInput placeholder="Confirm password" onChange={(e) => {this.setState({confpwd: e.target.value})}}/>
                         <br/>
                         <ButtonGroup horizontal>
-                            <Button theme="light" onClick = {this.onClickLogin}><a href="/login">Login &larr;</a></Button>
+                            <Button theme="light" onClick = {this.onClickLogin}><a href="/login">&larr; Login</a></Button>
                             <Button theme="light" onClick = {this.onClickRegister}>Register</Button>
                         </ButtonGroup>
                     </CardBody>
