@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row, CardBody, CardTitle, CardSubtitle, Badge, CardHeader } from "shards-react";
+import WeeklyOverview from '../components/WeeklyOverview';
 
 function Dashboard (props) {
     const daysOfWeek = ['mon','tues','wed','thurs','fri', 'weekend'] //placeholder
@@ -10,32 +11,13 @@ function Dashboard (props) {
             <br/><br/>
             <Row>
                 <Col lg={9}>
-                    <Container style={{overflow: 'auto'}}>
-                        <Row style={{width: '180%'}}>
-                            {
-                                daysOfWeek.map((val,i) => {
-                                    return <Col md={2}>
-                                        <Card>
-                                            <CardHeader style={{textAlign: 'center', textTransform: 'uppercase'}}>{val}</CardHeader>
-                                            <CardBody>
-                                                {
-                                                    tags.map(val => {
-                                                        return<Badge>{val}</Badge>
-                                                    })
-                                                }
-                                            </CardBody>
-                                        </Card>
-                                    </Col>
-                                })
-                            }
-                        </Row>
-                    </Container>
+                    <WeeklyOverview days={daysOfWeek} tags={tags}/>
                 </Col>
                 <Col lg={3}>
 
                 </Col>
             </Row>
-        
+    
         </Container>
     )
 }
