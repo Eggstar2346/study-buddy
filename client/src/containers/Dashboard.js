@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Col, Container, Row, CardBody, CardTitle, CardSubtitle, Badge, CardHeader } from "shards-react";
 import WeeklyOverview from '../components/WeeklyOverview';
+import TimerButtons from './TimerButtons';
 import Timetable from './Timetable';
 import RecommendedTasks from '../components/RecommendedTasks'
 
@@ -17,6 +18,9 @@ function Dashboard (props) {
                 </Col>
                 <Col lg={3}>
                     <RecommendedTasks/>
+                    <div style={{display:'flex',alignItems:'center', justifyContent: 'center'}}>
+                        <TimerButtons/>
+                    </div>
                     <Timetable/>
                 </Col>
             </Row>

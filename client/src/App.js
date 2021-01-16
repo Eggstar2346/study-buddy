@@ -6,7 +6,7 @@ import "shards-ui/dist/css/shards.min.css"
 import './App.css';
 import Dashboard from './containers/Dashboard';
 import Navbar from "./components/Navbar";
-import Breakdown from "./containers/Breakdown";
+import Breakdown from './containers/Breakdown/Breakdown';
 import Timetable from "./containers/Timetable"
 
 function App() {
