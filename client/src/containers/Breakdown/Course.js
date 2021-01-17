@@ -97,7 +97,7 @@ const Course = props => {
         let res = await axios.post('/courses/setGrade', {
             course_id: props.courseInfo.course_id, 
             student_id: window.localStorage.user, 
-            priority: parseFloat(document.getElementById('grade').value)
+            grade: parseFloat(document.getElementById('grade').value)
         })
     }
 

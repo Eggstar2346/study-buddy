@@ -57,6 +57,15 @@ module.exports = async (app, pool) => {
         console.log(response)
     })
 
+    app.post('/courses/setGrade', async (req, res) => {
+        const { grade, course_id, student_id} = req.body
+        const response = await pool.query(`
+            UPDATE studybuddy.course SET grade = ${grade}
+            WHERE course_id = ${course_id} AND student_id = ${student_id}
+        `)
+        console.log(response)
+    })
+
     app.get('/courses/:course_id/:student_id/getGrade', async (req, res) => {
         const { course_id, student_id } = req.params
         const response = await pool.query(`
