@@ -181,14 +181,18 @@ module.exports = async (app, passport, pool) => {
         // create new student
         const {email, password, name} = req.body
         try {
+            const allRows = await pool.query(` SELECT student_id FROM studybuddy.student `)
+            const num = allRows.rowCount > 0 ? parseInt(allRows.rows[allRows.rowCount - 1].student_id) + 1 : 0
+            console.log('num: ', num, allRows.rows)
+            
             const response = await pool.query(`
                 INSERT INTO studybuddy.student (student_id, email, pwd, student_name, mode) 
-                VALUES ('0000000000', '${email}', '${password}', '${name}', NULL)
+                VALUES (${num}, '${email}', '${password}', '${name}', NULL)
             `)
             console.log('success!')
             res.send({
                 success: true,
-                msg: 'created student!'
+                msg: "you're in! Welcome to Studdy Buddy"
             })
         }catch(err) {
             res.send({

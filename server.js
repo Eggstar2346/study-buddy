@@ -11,46 +11,19 @@ const config = require('./config.json')
 
 // Connect to database.
 const dbConfig = {
-    user: config.user,
-    password: config.password,
-    host: config.host,
-    port: config.port,
-    database: config.database,
+    user: (config) ? config.user : process.env.user,
+    password: (config) ? config.password : process.env.password,
+    host: (config) ? config.host : process.env.host,
+    port: (config) ? config.port : process.env.port,
+    database: (config) ? config.database : process.env.database,
     ssl: {
-        ca: fs.readFileSync('C:\\Users\\histo\\Documents\\trusty-lemur-ca.crt').toString(),
+        ca: fs.readFileSync(__dirname + '/trusty-lemur-ca.crt').toString(),
     }
 };
 
 // Create a pool.
 var pool = new pg.Pool(dbConfig);
 
-pool.connect(function (err, client, done) {
-    // Close communication with the database and exit.
-    var finish = function () {
-        done();
-        process.exit();
-    };
-
-    async.waterfall([
-        function (next) {
-            // Create the 'accounts' table.
-            client.query('SELECT * from studybuddy.student);', next);
-        },
-    ],
-    function (err, results) {
-        if (err) {
-            console.error('Error inserting into and selecting from accounts: ', err);
-            finish();
-        }
-        finish();
-    });
-
-
-    if (err) {
-        console.error('could not connect to cockroachdb', err);
-        finish();
-    }
-});
 
 const app = express();
 // require('./services/passport')(passport);

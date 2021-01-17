@@ -43,7 +43,7 @@ const Breakdown = props => {
 
         alert(res.data.msg)
 
-        setCourseView([...courseView,  <Col md={6}><Course name={cName} courseInfo={res.data.info}/></Col>])
+        setCourseView([...courseView,  <Col md={6}><br/><br/><Course name={cName} courseInfo={res.data.info}/></Col>])
     }
 
     return (
