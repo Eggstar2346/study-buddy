@@ -1,39 +1,35 @@
-import React from 'react';
-import {Col, Row} from "shards-react";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import {Button, Col, FormInput, Modal, ModalBody, ModalHeader, Row} from "shards-react";
+import Task from '../../Task';
 
 import Input from '../Input';
+import TaskDetails from './TaskDetails';
 const TaskInfo = props => {
-    const importantTasks = props.tasks.map((task, i) => {
-        return (
-            <li>
-                <Row>
-                    <Col md={4}>
-                        <p>{task.name}: {task.date}, {task.mark}</p>
-                    </Col>
-                    <Col md={8}>
-                    <Input type="" value={task.date} update={event => {
-                            let newDates = [...props.dates];
-                            newDates[i] = {name: task.name, date: event.target.value};
-                            props.update(newDates)}}/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={4}/>
-                    <Col md={8}>
-                        <Input type="" value={props.breakdown[mark]} update={event => {
-                            let newBreakdown = {...props.breakdown};
-                            newBreakdown[mark] = event.target.value;
-                            props.update(newBreakdown)}}/>
-                    </Col>
-                </Row>
-            </li>
-        );
-    })
+    let [displayTasks, setDisplayTasks] = useState([])
+    let [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        const importantTasks = (props.tasks.length > 0) ? props.tasks.map((task, i) => {
+            return (
+                <TaskDetails task={task}/>
+            );
+        }) : []
+        setDisplayTasks(importantTasks)
+    }, [props])
+    
     return (
         <div>
+            <Modal open={open} toggle={() => {setOpen(!open)}}>
+                <ModalHeader>New Task</ModalHeader>
+                <ModalBody> 
+                    <Task setDisplay={setDisplayTasks} display={displayTasks} close={setOpen} id={props.course_id}/>
+                </ModalBody>
+            </Modal>
             <h3 style={{marginBottom: '50px'}}>Assignments & Assessments for the Course</h3>
-            <ul>
-                {importantTasks}
+            <ul style={{listStyleType: 'none'}}>
+                {displayTasks}
+                <Button onClick={() => {setOpen(!open)}}>Add New Task</Button>
             </ul>
         </div>
     );

@@ -26,11 +26,11 @@ CREATE TABLE IF NOT EXISTS Course (
 );
 
 CREATE TABLE IF NOT EXISTS Tasks (
-    task_id char(10) PRIMARY KEY,
+    task_id INT PRIMARY KEY,
     task_name TEXT,
     course_id INT REFERENCES Course(course_id),
     task_type TEXT,
-    due_date DATE,
+    due_date TEXT,
     completed BOOLEAN,
     grade FLOAT,
     grade_weight FLOAT,
