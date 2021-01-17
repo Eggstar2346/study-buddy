@@ -42,7 +42,7 @@ export default class Login extends React.Component {
         }else{
             if(response.data.pwd) {
                 window.localStorage.isLoggedIn = true
-                window.localStorage.user = response.data.user
+                window.localStorage.user = response.data.user.student_id
                 this.props.history.push('/dashboard')
                 window.location.reload()
             }

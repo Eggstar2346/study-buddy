@@ -1,15 +1,32 @@
 module.exports = (app, pool) => {
 
     app.post('/courses/addCourse', async(req, res) => {
-        const {course_id, student_id, profs, profs_email, tas, ta_emails, description, course_name, grade, type, priority, timetable} = req.body
+        const {timetable, student_id, course_name} = req.body
+
+        const allRows = await pool.query(` SELECT course_id FROM studybuddy.course `)
+        const num = allRows.rowCount > 0 ? parseInt(allRows.rows[allRows.rowCount - 1].course_id) + 1 : 0
+        console.log('num: ', num, allRows.rows)
         const response = await pool.query(`
-            INSERT INTO courses (course_id, student_id, profs, profs_email, tas, ta_emails, desr, course_name, grade, type, priority, timetable) 
-            VALUES (${course_id}, ${student_id}, ${profs}, ${profs_email}, ${tas}, ${ta_emails}, ${description}, ${course_name}, ${grade}, ${type}, ${course_priority}, ${timetable})
+            INSERT INTO studybuddy.course (course_id, student_id, profs, profs_email, tas, ta_emails, descr, course_name, grade, course_type, course_priority, timetable) 
+            VALUES (${num}, '${student_id}', NULL, NULL, NULL, NULL, NULL, '${course_name}', NULL, NULL, NULL, '${timetable}')
         `)
-        console.log(response)
-        if(response) {
-            res.send('created course!')
-        }
+        res.send({
+            msg: 'created course!',
+            info: {
+                course_id: num,
+                student_id: student_id,
+                profs: null,
+                profs_email: null,
+                tas: null,
+                ta_emails: null,
+                descr: null,
+                course_name: course_name,
+                grade: null,
+                course_type: null,
+                course_priority: null,
+                timetable: timetable
+            }
+        })
     })
 
     app.get('/courses/:sid/getCourseDetails', async(req, res) => {

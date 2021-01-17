@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Card,
     CardHeader,
@@ -15,11 +15,26 @@ import CourseInfo from '../../components/Breakdown/Course/CourseInfo';
 import MarkBreakdown from '../../components/Breakdown/Course/MarkBreakdown';
 import Dates from '../../components/Breakdown/Course/Dates';
 import Input from '../../components/Breakdown/Input';
+import TaskInfo from '../../components/Breakdown/Course/TaskInfo';
 
 const Course = props => {
-    const [profName, setProfName] = useState("Stark Draper");
-    const [profEmail, setProfEmail] = useState("stark.draper@utoronto.ca");
-    const [TAs, setTas] = useState([{id: 1, name: 'Mark', email: 'mark@utoronto.ca'}]);
+    const [profName, setProfName] = useState("");
+    const [profEmail, setProfEmail] = useState("");
+    const [TAs, setTas] = useState([{name: '', email: ''}]);
+    const [tasks, setTasks] = useState([])
+    
+    useEffect(() => {
+
+        if(props.courseInfo.tas){
+            const emails = props.courseInfo.ta_emails.split(',')
+            const tas = props.courseInfo.tas.split(',').map((t, i) => {
+                return {
+                    name: t, email: emails[i]
+                }
+            })
+            setTas(tas)
+        }
+    }, [props])
 
     const createNewTa = (id, fullName, email) => {
         const newTa = {id: id, name: fullName, email: email};
@@ -62,15 +77,14 @@ const Course = props => {
                 </Row>
                 <CardBody>
                     <CourseInfo 
-                        profName={profName} 
+                        profName={props.courseInfo.profs} 
                         updateProf={setProfName} 
-                        email={profEmail} 
+                        email={props.courseInfo.profs_email} 
                         updateEmail={setProfEmail}
                         TA={TAs}
                         updateTa={updateTa}
                         />
-                    <MarkBreakdown breakdown={marks} update={setMarks}/>
-                    <Dates dates={dates} update={setDates}/>
+                    <TaskInfo tasks={}/>
                 </CardBody>
             </Card>
         </Col>

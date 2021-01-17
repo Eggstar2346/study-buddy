@@ -122,7 +122,7 @@ module.exports = async (app, passport, pool) => {
             const user = response.rows[0]
             if(user.pwd === password){
                 isLoggedIn = true
-                res.send({msg: "Welcome Back!", hasAcct: true, pwd: true, user = user});
+                res.send({msg: "Welcome Back!", hasAcct: true, pwd: true, user: user});
             }else{
                 res.send({msg: "Incorrect Password!", hasAcct: true, pwd: false});
             }
@@ -158,15 +158,13 @@ module.exports = async (app, passport, pool) => {
 
 	app.get('/users/:id/current', async (req, res) => {
         const {id} = req.params
+        console.log(req.params)
         const response = await pool.query(`
-            SELECT timetable, course_name FROM studybuddy.course WHERE student_id = '${id}'
+            SELECT * FROM studybuddy.course WHERE student_id = '${id}'
         `)
         const courses = response.rows
-        if(courses.length <= 0) {
-            res.send({isNewUser: true, timetables: []})
-        } else {
-            res.send({isNewUser: false, timetables: courses})
-        }
+        console.log(courses)
+        res.send({isNewUser: (courses.length <= 0) ? true : false, courses: courses})
 	});
 
 	app.get('/logout', (req, res) => {

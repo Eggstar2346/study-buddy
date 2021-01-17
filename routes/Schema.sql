@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Student (
 );
 
 CREATE TABLE IF NOT EXISTS Course (
-    course_id char(10) PRIMARY KEY,
+    course_id INT PRIMARY KEY,
     student_id char(10) REFERENCES Student(student_id) ON DELETE CASCADE ON UPDATE CASCADE,
     profs TEXT,
     profs_email TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Course (
 CREATE TABLE IF NOT EXISTS Tasks (
     task_id char(10) PRIMARY KEY,
     task_name TEXT,
-    course_id char(10) REFERENCES Course(course_id),
+    course_id INT REFERENCES Course(course_id),
     task_type TEXT,
     due_date DATE,
     completed BOOLEAN,

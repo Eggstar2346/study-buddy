@@ -12,25 +12,29 @@ function Dashboard (props) {
     let [isNew, setIsNew] = useState(false)
 
     useEffect(() => {
-        if(!window.localStorage.isLoggedIn || !window.localStorage.user){
-            props.history.push('/login')
-            window.location.reload()
-        } else {
-            let res = axios.get(`/users/${window.localStorage.user.student_id}/current`)
-            if(res.data.isNewUser) {
-                setIsNew(true)
+        async function authUser() {
+            if(!window.localStorage.isLoggedIn || !window.localStorage.user){
+                props.history.push('/login')
+                window.location.reload()
             } else {
-                const tt = res.data.timetable
-                console.log(tt)
+                console.log(window.localStorage)
+                let res = await axios.get(`/users/${window.localStorage.user}/current`)
+                if(res.data.isNewUser) {
+                    setIsNew(true)
+                } else {
+                    const c = res.data.courses
+                    console.log(c)
+                }
             }
         }
+        authUser()
     }, [props.history])
     
     return(
         <Container>
             <br/><br/>
 
-            { isNew &&
+            { !isNew &&
             <>
                 <Row>
                     <WeeklyOverview days={daysOfWeek} tags={tags}/>
@@ -49,10 +53,10 @@ function Dashboard (props) {
                     </Col>
                 </Row>
             </>}
-            {!isNew && 
+            {isNew && 
                 <Row>
                     <h5>You don't have any data uploaded yet</h5>
-                    <Button><a href="/courses">Upload Courses</a></Button>
+                    <Button theme="light"><a href="/courses">Upload Courses</a></Button>
                 </Row>
             }
         </Container>
