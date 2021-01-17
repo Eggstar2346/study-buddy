@@ -7,12 +7,14 @@ import {
     CardBody,
     CardFooter,
     Button,
-    Col
+    Col,
+    Row
   } from "shards-react";
 
 import CourseInfo from '../../components/Breakdown/Course/CourseInfo';
 import MarkBreakdown from '../../components/Breakdown/Course/MarkBreakdown';
 import Dates from '../../components/Breakdown/Course/Dates';
+import Input from '../../components/Breakdown/Input';
 
 const Course = props => {
     const [profName, setProfName] = useState("Stark Draper");
@@ -23,8 +25,6 @@ const Course = props => {
         const newTa = {fullName: fullName, email: email};
         setTas([...TAs, newTa]);
     }
-
-
 
     const marks = {
         midterm: '30%',
@@ -40,11 +40,21 @@ const Course = props => {
     return (
         <Col>
             <Card>
-                <CardHeader>
-                    Course: {props.name}
-                </CardHeader>
+                <Row>
+                    <Col>
+                        <CardHeader>
+                            Course: {props.name}
+                        </CardHeader>
+                    </Col>                   
+                </Row>
                 <CardBody>
-                    <CourseInfo profName={profName} email={profEmail} TA={TAs}/>
+                    <CourseInfo 
+                        profName={profName} 
+                        updateProf={setProfName} 
+                        email={profEmail} 
+                        updateEmail={setProfEmail}
+                        TA={TAs}
+                        />
                     <MarkBreakdown breakdown={marks}/>
                     <Dates dates={dates}/>
                 </CardBody>
