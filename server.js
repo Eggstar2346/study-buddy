@@ -49,17 +49,17 @@ app.use(cors());
 // the "X-Forwarded-Proto" header field to be trusted so its
 // value can be used to determine the protocol. See 
 // http://expressjs.com/api#app-settings for more details.
-// app.enable('trust proxy');
-// app.use(function (req, res, next) {
-// 	if (req.secure || req.headers.host === 'localhost:5000') {
-// 		next();
-// 	} else {
-// 		// request was via http, so redirect to https
-// 		console.log('redirecting');
-// 		console.log(req.headers.host);
-// 		res.redirect(301, 'https://' + req.headers.host + req.url);
-// 	}
-// });
+app.enable('trust proxy');
+app.use(function (req, res, next) {
+	if (req.secure || req.headers.host === 'localhost:5000') {
+		next();
+	} else {
+		// request was via http, so redirect to https
+		console.log('redirecting');
+		console.log(req.headers.host);
+		res.redirect(301, 'https://' + req.headers.host + req.url);
+	}
+});
 
 app.use(express.static(__dirname + '/client/build'));
 
@@ -67,8 +67,8 @@ app.use(passport.initialize());
 // console.log('initialized');
 app.use(passport.session());
 
-require('./services/passport')(passport);
-require ('./routes/authenticateUsers')(app, pool);
+require('./services/passport')(passport, pool);
+require ('./routes/authenticateUsers')(app, passport, pool);
 require ('./routes/queryStudent')(app, pool);
 require ('./routes/queryCourses')(app, pool);
 require ('./routes/queryTasks')(app, pool);

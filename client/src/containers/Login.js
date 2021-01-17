@@ -26,8 +26,27 @@ export default class Login extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if(window.localStorage.isLoggedIn && window.localStorage.user){
+            this.props.history.push('/dashboard')
+            window.location.reload()
+        }
+    }
+
     async onClickLogin(e) {
-        await axios.post('/login', this.state)
+        let response = await axios.post('/login', this.state)
+        alert(response.data.msg)
+        if(!response.data.hasAcct){
+            this.props.history.push('/register')
+            window.location.reload()
+        }else{
+            if(response.data.pwd) {
+                window.localStorage.isLoggedIn = true
+                window.localStorage.user = response.data.user
+                this.props.history.push('/dashboard')
+                window.location.reload()
+            }
+        }
     }
 
     onClickRegister(e) {

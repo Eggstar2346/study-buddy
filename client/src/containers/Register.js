@@ -11,7 +11,7 @@ import {
   Row,
   ButtonGroup
 } from "shards-react";
-
+import axios from 'axios'
 export default class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -32,8 +32,14 @@ export default class Register extends React.Component {
         }
     }
 
-    onClickRegister(e) {
-        if (this.state.login) {
+    async onClickRegister(e) {
+        let response = await axios.post('/users/register', this.state)
+        if(response.data.success){
+            alert(response.data.msg)
+            this.props.history.push('/login')
+            window.location.reload()
+        } else {
+            alert('An error has occurred: ' + response.data.msg)
         }
     }
 

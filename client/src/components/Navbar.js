@@ -9,10 +9,10 @@ export default function Navbar (props) {
             </div>
             <h6>Actions:</h6>
             <ButtonGroup vertical>
-                <Button theme="light"> <a href="/"> View Full Timetable </a> </Button>
-                <Button theme="light"> <a href="/"> View Course Breakdown </a> </Button>
-                <Button theme="light"> <a href="/"> Scan Syllabus/Course Outline </a> </Button>
-                <Button theme="light"> <a href="/">Settings </a> </Button>
+                <Button theme="light"> <a href="/courses"> View Course Breakdown </a> </Button>
+                {/* <Button theme="light"> <a href="/"> Scan Syllabus/Course Outline </a> </Button> */}
+                {/* <Button theme="light"> <a href="/settings">Settings </a> </Button> */}
+                <Button theme="light" onClick={() => {window.localStorage.isLoggedIn = false}}> Logout </Button>
             </ButtonGroup>
             <br/><br/><br/>
             <h6>Sync to:</h6>

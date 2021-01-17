@@ -51,7 +51,7 @@ function SessionConstructor(userId, userType){
 	this.id = userId;
 }
 module.exports = function(passport, pool) {
-	passport.use( 
+	passport.use(
         new LocalStrategy(async function (email, password, done) {
 			// Match user
             console.log("passport strategy");

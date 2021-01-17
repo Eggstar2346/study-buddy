@@ -1,9 +1,9 @@
-const { google } = require('googleapis');
-const googleAuth = require('../services/googleAuth');
-const passport = require('passport');
-const googleCalenderService =require('../services/googleCalendarService');
+// const { google } = require('googleapis');
+// const googleAuth = require('../services/googleAuth');
+// const passport = require('passport');
+// const googleCalenderService =require('../services/googleCalendarService');
 
-module.exports = async (app, pool) => {
+module.exports = async (app, passport, pool) => {
 
     // app.get('/login', passport.authenticate('google', {
     //     scope: [
@@ -103,32 +103,36 @@ module.exports = async (app, pool) => {
     //         res.redirect('/');
     //     });
     // })
+    let isLoggedIn = false
 
-    app.post('/login', (req, res, next) => {
+    app.post('/login', async (req, res, next) => {
 
 		console.log("Entered login route");
-		const response = { registerStatus: false, errorMessage: '' };
 		const { email, password } = req.body;
-		console.log(req.body);
-		let errors = [];
-		//console.log(req.body);
 
-		/* Perform Input Validation*/
-		/*Check if Fields Empty */
-		if (!email || !password) {
-			errors.push('Make sure all fields are completed');
-		}
-
-		if (errors.length > 0) {
-			response.errorMessage = errors[0];
-			console.log(errors);
-			res.send(response);
-			return;
-		}
-
-		console.log("no errors");
-		passport.authenticate('local')(req, res, next);
-		console.log("hello")
+        const response = await pool.query(`
+            SELECT * FROM studybuddy.student WHERE email = '${email}'
+        `)
+        console.log(response.rows)
+        if(response.rows.length <= 0){
+            console.log('user does not exist')
+            res.send({msg: "you are not registered yet, please sign up", hasAcct: false});
+            return
+        }else{
+            const user = response.rows[0]
+            if(user.pwd === password){
+                isLoggedIn = true
+                res.send({msg: "Welcome Back!", hasAcct: true, pwd: true, user = user});
+            }else{
+                res.send({msg: "Incorrect Password!", hasAcct: true, pwd: false});
+            }
+        }
+        
+        // passport.authenticate('local',{
+        //     successRedirect: '/login_success',
+        //     failureRedirect: '/login_failure' 
+        // })(req, res, next);
+		// console.log("hello")
 	});
 
 	app.get('/login_success', (req, res) => {
@@ -139,7 +143,9 @@ module.exports = async (app, pool) => {
 
 	app.get('/login_failure', (req, res) => {
 		// const response = { registerStatus: false, errorMessage: 'An error occured. Make sure login info is correct.' };
-		res.redirect('/register');
+        console.log("hewow")
+        res.send({msg: "you are not registered yet, please sign up", hasAcct: false});
+        // res.redirect('/register');
 	});
 
 	app.get('/users/signedIn', (req, res) => {
@@ -150,9 +156,17 @@ module.exports = async (app, pool) => {
 		}
 	});
 
-	app.get('/users/current', (req, res) => {
-		console.log(req.user);
-		res.send(req.user);
+	app.get('/users/:id/current', async (req, res) => {
+        const {id} = req.params
+        const response = await pool.query(`
+            SELECT timetable, course_name FROM studybuddy.course WHERE student_id = '${id}'
+        `)
+        const courses = response.rows
+        if(courses.length <= 0) {
+            res.send({isNewUser: true, timetables: []})
+        } else {
+            res.send({isNewUser: false, timetables: courses})
+        }
 	});
 
 	app.get('/logout', (req, res) => {
@@ -167,14 +181,22 @@ module.exports = async (app, pool) => {
 		// let errors = [];
         console.log('register user');
         // create new student
-        const {id, email, pwd, student_name} = req.body
-        const response = await pool.query(`
-            INSERT INTO student (id, email, pwd, student_name, mode) 
-            VALUES (${id}, ${email}, ${pwd}, ${student_name}, NULL)
-        `)
-        console.log(response)
-        if(response) {
-            res.send('created student!')
+        const {email, password, name} = req.body
+        try {
+            const response = await pool.query(`
+                INSERT INTO studybuddy.student (student_id, email, pwd, student_name, mode) 
+                VALUES ('0000000000', '${email}', '${password}', '${name}', NULL)
+            `)
+            console.log('success!')
+            res.send({
+                success: true,
+                msg: 'created student!'
+            })
+        }catch(err) {
+            res.send({
+                success: false,
+                msg: err.toString()
+            })
         }
     })
 }
