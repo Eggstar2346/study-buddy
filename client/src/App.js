@@ -23,7 +23,7 @@ function App() {
       <div class="content-container" style={{paddingLeft: navClass ? '250px' : ''}}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Dashboard}/>
+            <Route exact path="/dashboard" component={Dashboard}/>
             <Route exact path="/courses" component={Breakdown}/>
             {/*<Route exact path="/analytics" component={}/>
             <Route exact path="/settings" component={}/> */}

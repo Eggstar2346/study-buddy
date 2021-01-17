@@ -12,8 +12,8 @@ module.exports = (app, pool) => {
         }
     })
 
-    app.get('/tasks/getGrade', async(req, res) => {
-        const task_id = req.body 
+    app.get('/tasks/:task_id/getGrade', async(req, res) => {
+        const {task_id} = req.params
         const response = await pool.query(`
             SELECT grade FROM tasks WHERE task_id = ${task_id}
         `)
@@ -21,8 +21,8 @@ module.exports = (app, pool) => {
     })
 
 
-    app.get('/tasks/getDueDateAndGradeWeight', async(req, res) => {
-        const task_id = req.body 
+    app.get('/tasks/:task_id/getDueDateAndGradeWeight', async(req, res) => {
+        const {task_id} = req.params 
         const response = await pool.query(`
             SELECT due_date, grade_weight FROM TASKS WHERE task_id = ${task_id}
         `)
