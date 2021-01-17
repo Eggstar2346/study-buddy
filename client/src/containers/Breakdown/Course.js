@@ -84,7 +84,7 @@ const Course = props => {
                 <Row>
                     <Col>
                         <CardHeader>
-                            Course: {props.name}
+                            Course: {props.name}, Timetable: {props.tt}
                         </CardHeader>
                     </Col>                   
                 </Row>

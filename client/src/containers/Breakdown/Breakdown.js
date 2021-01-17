@@ -20,7 +20,7 @@ const Breakdown = props => {
                 let res = await axios.get(`/users/${window.localStorage.user}/current`)
                 if(res.data.courses.length > 0) {
                     const courses = res.data.courses.map(c => {
-                        return <Col md={6}><Course name={c.course_name} courseInfo={c}/></Col>
+                        return <Col md={6}><br/><br/><Course name={c.course_name} courseInfo={c} tt={c.timetable}/></Col>
                     })
                     setCourseView(courses)
                 }
@@ -43,7 +43,7 @@ const Breakdown = props => {
 
         alert(res.data.msg)
 
-        setCourseView([...courseView,  <Col md={6}><br/><br/><Course name={cName} courseInfo={res.data.info}/></Col>])
+        setCourseView([...courseView,  <Col md={6}><br/><br/><Course name={cName} courseInfo={res.data.info} tt={res.data.info.timetable}/></Col>])
     }
 
     return (

@@ -10,25 +10,41 @@ function Dashboard (props) {
     const daysOfWeek = ['mon','tues','wed','thurs','fri', 'weekend'] //placeholder
     const tags = ['ESC301', 'AER372', 'CSC384', 'ECE353', 'MIE438', 'ROB313'] //placeholder
     let [isNew, setIsNew] = useState(false)
+    let [tdyCourses, setTdyCourses] = useState([])
 
-    /* useEffect(() => {
+    useEffect(() => {
         async function authUser() {
             if(!window.localStorage.isLoggedIn || !window.localStorage.user){
                 props.history.push('/login')
                 window.location.reload()
             } else {
-                console.log(window.localStorage)
+                const lettersOfWeek = ['M', 'T', 'W', 'H', 'F']
+                // console.log(window.localStorage)
                 let res = await axios.get(`/users/${window.localStorage.user}/current`)
                 if(res.data.isNewUser) {
                     setIsNew(true)
                 } else {
-                    const c = res.data.courses
-                    console.log(c)
+                    const tt = res.data.courses.map(c => {return {timetable: c.timetable, name: c.course_name}})
+                    let todayCourses = []
+                    const today = new Date()
+                    const dow = lettersOfWeek[today.getDay()]
+                    console.log(dow)
+                    tt.forEach(t => {
+                        if(t.timetable.includes(dow)){
+                            const hh = t.timetable.slice(t.timetable.indexOf(dow) + 1,t.timetable.indexOf(dow) + 6)
+                            todayCourses.push({
+                                time: hh,
+                                amt: parseInt(hh.split('-')[1]) - parseInt(hh.split('-')[0]),
+                                name: t.name
+                            })
+                        }
+                    })
+                    setTdyCourses(todayCourses)
                 }
             }
         }
         authUser()
-    }, [props.history]) */
+    }, [props.history])
     
     return(
         <Container>
@@ -40,7 +56,7 @@ function Dashboard (props) {
                 </Row>
                 <Row>
                     <Col lg={4}>
-                        <Timetable/>
+                        <Timetable schedule={tdyCourses}/>
                     </Col>
                     <Col lg={4}>
                         <br></br>
