@@ -32,6 +32,11 @@ a:hover {
   left:0px;
 }
 
+#logincard {
+  padding: 20px;
+  background-color: #99caff;
+}
+
 #toggleBtn {
   position:absolute;
   left:250px;
