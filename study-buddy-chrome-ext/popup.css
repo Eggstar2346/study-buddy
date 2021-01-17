@@ -1,0 +1,23 @@
+body {
+    min-width: 300px;
+    padding: 20px;
+    text-align: center;
+    background-color: #d4e9ff;
+}
+
+.container {
+    min-width: 500px;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+    text-align: center;
+}
+
+.notes-container {
+    text-align: center;
+}
+
+li {
+    text-align: left;
+}
