@@ -10,7 +10,7 @@ export default function WeeklyOverview (props) {
                 {
                     props.days.map((val,i) => {
                         return <Col md={2} className={styles.Col} >
-                            <Card style={{ maxWidth: "300px", }} /*className={styles.Card}*/>
+                            <Card style={{ maxWidth: "300px"}} /*className={styles.Card}*/>
                                 <CardHeader style={{textAlign: 'center', textTransform: 'uppercase'}} className={styles.CardHeader}>{val}</CardHeader>
                                 <CardBody className={styles.CardBody}>
                                     {
