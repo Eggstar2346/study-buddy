@@ -23,7 +23,7 @@ export default class Task extends React.Component {
             grade_weight: "",
             due_date: "",
             grade: "",
-            task_type: "monkey",
+            task_type: "Select",
             completed: false,
             open: false
         };
@@ -93,7 +93,7 @@ export default class Task extends React.Component {
                     <InputGroupAddon type="prepend">
                         <InputGroupText>Type</InputGroupText>
                     </InputGroupAddon>
-                    <FormInput name="task_type" placeholder="Core"/>
+                    <FormInput name="task_type" placeholder={this.task_type}/>
                     <Dropdown open={this.state.open} toggle={this.toggle}>
                         <DropdownToggle>Select</DropdownToggle>
                             <DropdownMenu>
