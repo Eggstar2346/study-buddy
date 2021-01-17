@@ -61,7 +61,7 @@ export default class Login extends React.Component {
                 <Col md={3}></Col>
                 <Col md={6}>
                 <Card style={{ maxWidth: "800px" }} id="logincard">
-                    <h6>Glad to see you again!</h6>
+                    <h3 style={{textAlign: 'center', color:"#5784BA"}}>Glad to see you again!</h3>
                     <CardBody>
                         <FormInput placeholder="Email" onChange={(e) => {this.setState({email: e.target.value})}}/>
                         <br/>

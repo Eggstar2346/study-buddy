@@ -50,7 +50,7 @@ export default class Register extends React.Component {
                 <Col md={3}></Col>
                 <Col md={6}>
                 <Card style={{ maxWidth: "800px" }} id="logincard">
-                    <h6>Welcome to Study Buddy!</h6>
+                    <h3 style={{textAlign: 'center', color:"#5784BA"}}>Welcome to Study Buddy</h3>
                     <CardBody>
                         <FormInput placeholder="Name" onChange={(e) => {this.setState({name: e.target.value})}}/>
                         <br/>
