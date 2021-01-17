@@ -127,10 +127,7 @@ module.exports = async (app, pool) => {
 		}
 
 		console.log("no errors");
-		passport.authenticate({
-			successRedirect: '/login_success',
-			failureRedirect: '/login_failure'
-		})(req, res, next);
+		passport.authenticate('local')(req, res, next);
 		console.log("hello")
 	});
 
@@ -164,10 +161,10 @@ module.exports = async (app, pool) => {
 		res.redirect('/login');
 	});
 
-	app.post('/users/register', (req, res) => {
-		const response = { registerStatus: false, errorMessage: '' };
+	app.post('/users/register', async (req, res) => {
+		// const response = { registerStatus: false, errorMessage: '' };
 		// const studentData = req.body;
-		let errors = [];
+		// let errors = [];
         console.log('register user');
         // create new student
         const {id, email, pwd, student_name} = req.body

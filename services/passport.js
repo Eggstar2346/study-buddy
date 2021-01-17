@@ -43,9 +43,8 @@
 // module.exports = passport;
 
 
-
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 
 function SessionConstructor(userId, userType){
@@ -53,7 +52,7 @@ function SessionConstructor(userId, userType){
 }
 module.exports = function(passport, pool) {
 	passport.use( 
-        new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+        new LocalStrategy(async function (email, password, done) {
 			// Match user
             console.log("passport strategy");
             const response = await pool.query(`
@@ -80,7 +79,7 @@ module.exports = function(passport, pool) {
 		done(null, sessionInstance);
 	});
 
-	passport.deserializeUser(function(sessionInstance, done) {
+	passport.deserializeUser(async (sessionInstance, done) => {
         console.log("deserialize user for session: ", sessionInstance);
         const response = await pool.query(`
             SELECT * FROM student WHERE id = ${sessionInstance.id}

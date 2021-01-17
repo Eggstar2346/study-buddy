@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Col, Container, Row, CardBody, CardTitle, CardSubtitle, Badge, CardHeader } from "shards-react";
 import WeeklyOverview from '../components/WeeklyOverview';
-import TimerButtons from './TimerButtons';
-import Timetable from './Timetable';
+import TimerButtons from '../components/TimerButtons';
+import Timetable from '../components/Timetable';
 import RecommendedTasks from '../components/RecommendedTasks'
 
 function Dashboard (props) {
