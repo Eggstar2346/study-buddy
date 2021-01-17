@@ -79,8 +79,8 @@ app.get('*', (req, res) => {
 });
 
 /* Tell server to listen to port in environemnt variable, else, listen to port 5000 */
-app.listen(process.env.PORT || 5000, () => {
-	console.log('starting listening at port 5000');
+app.listen(process.env.PORT, () => {
+	console.log('starting listening at port ' + process.env.PORT);
 });
 
 // app.set('view engine', 'html');

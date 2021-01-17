@@ -60,7 +60,7 @@ module.exports = async (app, pool) => {
     app.get('/courses/:course_id/:student_id/getGrade', async (req, res) => {
         const { course_id, student_id } = req.params
         const response = await pool.query(`
-            SELECT grade FROM courses 
+            SELECT grade FROM course
             WHERE course_id = ${course_id} AND student_id = ${student_id}
         `)
         console.log(response, response.rows)
@@ -73,6 +73,15 @@ module.exports = async (app, pool) => {
             WHERE course_id = ${course_id} AND student_id = ${student_id};
         `)
         console.log(response, response.rows)
+    })
+
+    app.post('/courses/setPriority', async (req, res) => {
+        const { course_id, student_id, priority } = req.body
+        const response = await pool.query(`
+            UPDATE studybuddy.course SET course_priority = ${parseInt(priority)}
+            WHERE course_id = ${course_id} AND student_id = ${student_id};
+        `)
+        console.log(response.rows)
     })
 
     app.get('/courses/:course_id/:student_id/getTimetable', async (req, res) => {
@@ -200,7 +209,7 @@ module.exports = async (app, pool) => {
             // })
 
             const allRowsC = await pool.query(` SELECT course_id FROM studybuddy.course `)
-            const numC = allRowsC.rowCount > 0 ? parseInt(allRowsC.rows[allRows.rowCount - 1].course_id) + 1 : 0
+            const numC = allRowsC.rowCount > 0 ? parseInt(allRowsC.rows[allRowsC.rowCount - 1].course_id) + 1 : 0
             console.log('num: ', numC, allRowsC.rows)
 
             const resC = await pool.query(`
@@ -208,15 +217,16 @@ module.exports = async (app, pool) => {
                 VALUES (${numC}, '${req.body.student_id}', NULL, NULL, NULL, NULL, NULL, '${sections[0].ParsedText.split('\r\n')[0]}', NULL, NULL, NULL, 'M15-16W12-13F13-14')
             `)
 
-            tasks.forEach( async (t) => {
-                const allRows = await pool.query(` SELECT task_id FROM studybuddy.tasks `)
-                const num = allRows.rowCount > 0 ? parseInt(allRows.rows[allRows.rowCount - 1].task_id) + 1 : 0
-                console.log('num: ', num, allRows.rows)
+            const allRows = await pool.query(` SELECT task_id FROM studybuddy.tasks `)
+            let num = allRows.rowCount > 0 ? parseInt(allRows.rows[allRows.rowCount - 1].task_id) + 1 : 0
+            console.log('num: ', num, allRows.rows)
 
+            tasks.forEach( async (t) => {
                 const resT = await pool.query(`
                     INSERT INTO studybuddy.tasks (task_id, task_name, course_id, task_type, due_date, completed, grade, grade_weight, score, time_completed) 
                     VALUES (${num}, '${t.task_name}', ${numC}, '${t.task_type}', '${t.due_date}', FALSE, NULL, ${t.grade_weight}, NULL, NULL)
                 `)
+                num += 1
             })
 
             res.redirect('/courses')

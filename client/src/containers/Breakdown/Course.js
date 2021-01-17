@@ -13,7 +13,10 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    FormInput
+    FormInput,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupText
   } from "shards-react";
 
 import CourseInfo from '../../components/Breakdown/Course/CourseInfo';
@@ -30,8 +33,12 @@ const Course = props => {
     const [tasks, setTasks] = useState([])
     const [openDD, setOpenDD] = useState(false)
     const [select, setSelect] = useState('Select Type of Course')
+    const [openPriority, setOpenPriority] = useState(false)
+    const [priority, setPriority] = useState(0)
+
 
     useEffect(() => {
+        setPriority(props.courseInfo.course_priority)
         async function getInfo() {
             let res = await axios.get(`/tasks/${props.courseInfo.course_id}/getAll`)
             setTasks(res.data)
@@ -78,6 +85,22 @@ const Course = props => {
         setTas(newTAs);
     };
 
+    async function updatePriority(p) {
+        let res = await axios.post('/courses/setPriority', {
+            course_id: props.courseInfo.course_id, 
+            student_id: window.localStorage.user, 
+            priority: p
+        })
+    }
+    
+    async function updateGrade() {
+        let res = await axios.post('/courses/setGrade', {
+            course_id: props.courseInfo.course_id, 
+            student_id: window.localStorage.user, 
+            priority: parseFloat(document.getElementById('grade').value)
+        })
+    }
+
     return (
         <Col>
             <Card>
@@ -97,11 +120,28 @@ const Course = props => {
                         TA={TAs}
                         updateTa={updateTa}
                         />
+                    <InputGroup>
+                        <InputGroupAddon type="prepend">
+                            <InputGroupText>Grade</InputGroupText>
+                        </InputGroupAddon>
+                        <FormInput type="text" id="grade" placeholder="enter course grade" value={props.courseInfo.grade}/>
+                        <InputGroupAddon type="append">
+                            <Button theme="secondary" onClick={updateGrade}>Update</Button>
+                        </InputGroupAddon>
+                    </InputGroup>
                     <Dropdown open={openDD} toggle={() => {setOpenDD(!openDD)}}>
                         <DropdownToggle>{select}</DropdownToggle>
                             <DropdownMenu>
                                 <DropdownItem value="Core" onClick={() => {setSelect('Core')}}>Core</DropdownItem>
                                 <DropdownItem value="Elective" onClick={() => {setSelect('Elective')}}>Elective</DropdownItem>
+                            </DropdownMenu>
+                    </Dropdown>
+                    <Dropdown open={openPriority} toggle={() => {setOpenPriority(!openPriority)}}>
+                        <DropdownToggle>{priority === 0 ? 'Set Priority' : 'Priority - ' + priority }</DropdownToggle>
+                            <DropdownMenu>
+                                <DropdownItem onClick={() => {setPriority(1); updatePriority(1)}}>Low - 1</DropdownItem>
+                                <DropdownItem onClick={() => {setPriority(2); updatePriority(2)}}>Medium - 2</DropdownItem>
+                                <DropdownItem onClick={() => {setPriority(3); updatePriority(3)}}>High - 3</DropdownItem>
                             </DropdownMenu>
                     </Dropdown>
                     <TaskInfo tasks={tasks} course_id={props.courseInfo.course_id}/>
