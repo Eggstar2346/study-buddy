@@ -37,6 +37,11 @@ a:hover {
   background-color: #99caff;
 }
 
+#taskcard {
+  padding: 20px;
+  background-color: #d4e9ff;
+}
+
 #toggleBtn {
   position:absolute;
   left:250px;

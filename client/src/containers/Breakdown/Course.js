@@ -19,24 +19,37 @@ import Input from '../../components/Breakdown/Input';
 const Course = props => {
     const [profName, setProfName] = useState("Stark Draper");
     const [profEmail, setProfEmail] = useState("stark.draper@utoronto.ca");
-    const [TAs, setTas] = useState([{name: 'Mark', email: 'mark@utoronto.ca'}]);
+    const [TAs, setTas] = useState([{id: 1, name: 'Mark', email: 'mark@utoronto.ca'}]);
 
-    const createNewTa = (fullName, email) => {
-        const newTa = {fullName: fullName, email: email};
+    const createNewTa = (id, fullName, email) => {
+        const newTa = {id: id, name: fullName, email: email};
         setTas([...TAs, newTa]);
     }
 
-    const marks = {
+    const [marks, setMarks] = useState({
         midterm: '30%',
         assignments: '30%',
         final: '40%'
-    }
+    });
 
-    const dates = [
+    const [dates, setDates] = useState([
         {name: 'assign1', date: "Feb 02"},
         {name: 'assign2', date: "Feb 02"},
         {name: 'assign3', date: "Feb 02"}
-    ]
+    ]);
+
+    const updateTa = (id, newName, newEmail) => {
+        let newTAs = [...TAs];
+        newTAs = newTAs.map(el => {
+            if (el.id === id) {
+                el.name = newName;
+                el.email = newEmail;
+                return el;
+            }
+            return el;
+        });
+        setTas(newTAs);
+    };
     return (
         <Col>
             <Card>
@@ -54,9 +67,10 @@ const Course = props => {
                         email={profEmail} 
                         updateEmail={setProfEmail}
                         TA={TAs}
+                        updateTa={updateTa}
                         />
-                    <MarkBreakdown breakdown={marks}/>
-                    <Dates dates={dates}/>
+                    <MarkBreakdown breakdown={marks} update={setMarks}/>
+                    <Dates dates={dates} update={setDates}/>
                 </CardBody>
             </Card>
         </Col>

@@ -13,9 +13,9 @@ const CourseInfo = props => {
                 return (
                     <div id={i}>
                         <p>TA: {el.name}</p>
-                        {/* <Input type="TA" value={el.name} update={props.}/> */}
+                        <Input type="TA" value={el.name} update={event => props.updateTa(el.id, event.target.value, el.email)}/>
                         <p>Email: {el.email}</p>
-                        {/* <Input type="TA Email" value={el.email} update={props.}/> */}
+                        <Input type="TA Email" value={el.email} update={event => props.updateTa(el.id, el.name, event.target.value)}/>
                     </div>
                 )
             })}
