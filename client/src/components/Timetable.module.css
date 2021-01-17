@@ -1,0 +1,26 @@
+.TimeTable {
+    font-size: 115%;
+    text-align: left;
+    font-weight: 475;
+    margin-left: -50;
+}
+
+.BadgeESC301 {
+    background-color: #DEEBF1;
+}
+
+.BadgeROB313 {
+    background-color: #F4DFEB;
+}
+
+.BadgeCSC384 {
+    background-color: #DDEDEA;
+}
+
+.BadgeECE353 {
+    background-color: #F9EBDD;
+}
+
+.BadgeTime{
+    background-color: #F0F0F0;
+}

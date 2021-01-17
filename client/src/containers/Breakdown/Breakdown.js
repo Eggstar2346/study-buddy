@@ -27,7 +27,7 @@ const Breakdown = props => {
             }
         }
         authUser()
-    },[props])
+    },[props]) 
 
 
     async function initCourse(e) {

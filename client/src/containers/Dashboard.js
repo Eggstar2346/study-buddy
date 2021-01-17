@@ -11,7 +11,7 @@ function Dashboard (props) {
     const tags = ['ESC301', 'AER372', 'CSC384', 'ECE353', 'MIE438', 'ROB313'] //placeholder
     let [isNew, setIsNew] = useState(false)
 
-    useEffect(() => {
+    /* useEffect(() => {
         async function authUser() {
             if(!window.localStorage.isLoggedIn || !window.localStorage.user){
                 props.history.push('/login')
@@ -28,12 +28,11 @@ function Dashboard (props) {
             }
         }
         authUser()
-    }, [props.history])
+    }, [props.history]) */
     
     return(
         <Container>
-            <br/><br/>
-
+                <h1 style={{textAlign: 'center', color: '#5784BA', justifyContent: 'center'}}>Dashboard</h1>
             { !isNew &&
             <>
                 <Row>
@@ -41,16 +40,22 @@ function Dashboard (props) {
                 </Row>
                 <Row>
                     <Col lg={4}>
+                        <Timetable/>
+                    </Col>
+                    <Col lg={4}>
+                        <br></br>
                         <RecommendedTasks/>
                     </Col>
                     <Col lg={4}>
+                        <br></br>
+                        <br></br>
+                        <h4 style={{textAlign: 'center', color: '#5784BA'}}>Track your study time!</h4>
+                        <h5 style={{textAlign: 'center', color: '#5784BA'}}> stop work | start work | take break</h5>
                         <div style={{display:'flex',alignItems:'center', justifyContent: 'center'}}>
                             <TimerButtons/>
                         </div>
                     </Col>
-                    <Col lg={4}>
-                        <Timetable/>
-                    </Col>
+                    
                 </Row>
             </>}
             {isNew && 
