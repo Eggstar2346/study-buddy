@@ -11,6 +11,7 @@ import {
   Row,
   ButtonGroup
 } from "shards-react";
+import axios from 'axios'
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -25,9 +26,8 @@ export default class Login extends React.Component {
         };
     }
 
-    onClickLogin(e) {
-        if (this.state.register) {
-        }
+    async onClickLogin(e) {
+        await axios.post('/login', this.state)
     }
 
     onClickRegister(e) {
@@ -46,11 +46,11 @@ export default class Login extends React.Component {
                     <CardBody>
                         <FormInput placeholder="Email" onChange={(e) => {this.setState({email: e.target.value})}}/>
                         <br/>
-                        <FormInput placeholder="Password" onChange={(e) => {this.setState({password: e.target.value})}}/>
+                        <FormInput placeholder="Password" type="password" onChange={(e) => {this.setState({password: e.target.value})}}/>
                         <br/>
                         <ButtonGroup horizontal>
                             <Button theme="light" onClick = {this.onClickLogin}>Login</Button>
-                            <Button theme="light" onClick = {this.onClickRegister}><a href="/register">Register &rarr;</a></Button>
+                            {/* <Button theme="light" onClick = {this.onClickRegister}><a href="/register">Register &rarr;</a></Button> */}
                         </ButtonGroup>
                     </CardBody>
                 </Card>

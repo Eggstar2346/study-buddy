@@ -12,8 +12,8 @@ module.exports = (app, pool) => {
         }
     })
 
-    app.get('/courses/getCourseDetails', async(req, res) => {
-        const sid = req.body
+    app.get('/courses/:sid/getCourseDetails', async(req, res) => {
+        const sid = req.params.sid
         const response = await pool.query(`
             SELECT * FROM courses WHERE student_id = ${sid}
         `)
@@ -36,8 +36,8 @@ module.exports = (app, pool) => {
         console.log(response)
     })
 
-    app.get('/courses/getGrade', async(req, res) => {
-        const {course_id, student_id} = req.body 
+    app.get('/courses/:course_id/:student_id/getGrade', async(req, res) => {
+        const {course_id, student_id} = req.params 
         const response = await pool.query(`
             SELECT grade FROM courses 
             WHERE course_id = ${course_id} AND student_id = ${student_id}
@@ -45,8 +45,8 @@ module.exports = (app, pool) => {
         console.log(response, response.rows)
     })
 
-    app.get('/courses/getPriority', async(req, res) => {
-        const {course_id, student_id} = req.body 
+    app.get('/courses/:course_id/:student_id/getPriority', async(req, res) => {
+        const {course_id, student_id} = req.params 
         const response = await pool.query(`
             SELECT course_priority FROM courses 
             WHERE course_id = ${course_id} AND student_id = ${student_id};
@@ -54,8 +54,8 @@ module.exports = (app, pool) => {
         console.log(response, response.rows)
     })
 
-    app.get('/courses/getTimetable', async(req, res) => {
-        const {course_id, student_id} = req.body 
+    app.get('/courses/:course_id/:student_id/getTimetable', async(req, res) => {
+        const {course_id, student_id} = req.params 
         const response = await pool.query(`
             SELECT timetable FROM courses 
             WHERE course_id = ${course_id} AND student_id = ${student_id}
@@ -63,7 +63,7 @@ module.exports = (app, pool) => {
         console.log(response, response.rows)
     })
 
-    app.get('/courses/removeCourse', async(req, res) => {
+    app.delete('/courses/removeCourse', async(req, res) => {
         const course_id = req.body 
         const response = await pool.query(`
             DELETE FROM courses WHERE course_id = ${course_id}

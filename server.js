@@ -1,16 +1,16 @@
 const express = require('express');
-// const session = require('express-session');
+const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const passport = require('passport');
+const passport = require('passport');
 var async = require('async');
 var fs = require('fs');
 var pg = require('pg');
 const config = require('./config.json')
 
-// Connect to the "bank" database.
-var config = {
+// Connect to database.
+const dbConfig = {
     user: config.user,
     password: config.password,
     host: config.host,
@@ -22,19 +22,25 @@ var config = {
 };
 
 // Create a pool.
-var pool = new pg.Pool(config);
+var pool = new pg.Pool(dbConfig);
 
 
 const app = express();
 // require('./services/passport')(passport);
 
-// app.use(
-// 	session({
-// 		secret: 'Insert randomized text here',
-// 		resave: false,
-// 		saveUninitialized: false
-// 	})
-// );
+app.use(
+	session({
+        name:'sid',
+		secret: 'Insert randomized text here',
+		resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 2,
+            sameSite: true,
+            secure: true //process.env.NODE_ENV === 'production'
+        }
+	})
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -57,13 +63,15 @@ app.use(cors());
 
 app.use(express.static(__dirname + '/client/build'));
 
-// app.use(passport.initialize());
+app.use(passport.initialize());
 // console.log('initialized');
-// app.use(passport.session());
+app.use(passport.session());
 
-
-require ('./routes/registerUser')(app, pool);
-require ('./routes/updateUser')(app, pool);
+require('./services/passport')(passport);
+require ('./routes/authenticateUsers')(app, pool);
+require ('./routes/queryStudent')(app, pool);
+require ('./routes/queryCourses')(app, pool);
+require ('./routes/queryTasks')(app, pool);
 
 // All routes other than above will go to index.html
 app.get('*', (req, res) => {
@@ -74,3 +82,5 @@ app.get('*', (req, res) => {
 app.listen(process.env.PORT || 5000, () => {
 	console.log('starting listening at port 5000');
 });
+
+// app.set('view engine', 'html');

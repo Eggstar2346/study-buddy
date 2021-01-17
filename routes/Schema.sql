@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS Course (
 
 CREATE TABLE IF NOT EXISTS Tasks (
     task_id char(10) PRIMARY KEY,
+    task_name TEXT,
     course_id char(10) REFERENCES Course(course_id),
     task_type TEXT,
     due_date DATE,
