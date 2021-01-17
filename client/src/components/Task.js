@@ -60,22 +60,13 @@ export default class Task extends React.Component {
         return (
             <div>
                 <InputGroup classname="get_task_name">
-                    <InputGroupAddon type="prepend">
-                        <InputGroupText>Task Name</InputGroupText>
-                    </InputGroupAddon>
-                    <FormInput name="task_name" placeholder="Problem set 1" onChange={(event) => {this.setState({task_name: event.target.value})}}/>    
+                    <FormInput name="task_name" placeholder="Task Name (eg. Assignment 1)" onChange={(event) => {this.setState({task_name: event.target.value})}}/>    
                 </InputGroup>
                 <InputGroup classname="get_course_id">
-                    <InputGroupAddon type="prepend">
-                        <InputGroupText>Course</InputGroupText>
-                    </InputGroupAddon>
-                    <FormInput name="course_id" placeholder="CALC100" onChange={(event) => {this.setState({course_id: event.target.value})}}/>
+                    <FormInput name="course_id" placeholder="Course (eg. CALC100)" onChange={(event) => {this.setState({course_id: event.target.value})}}/>
                 </InputGroup>
                 <InputGroup classname="get_grade_weight">
-                    <InputGroupAddon type="prepend">
-                        <InputGroupText>Percentage of Grade</InputGroupText>
-                    </InputGroupAddon>
-                    <FormInput name="grade_weight" placeholder="0.1" onChange={(event) => {this.setState({grade_weight: event.target.value})}}/>
+                    <FormInput name="grade_weight" placeholder="Percentage of Grade (eg. 0.1)" onChange={(event) => {this.setState({grade_weight: event.target.value})}}/>
                 </InputGroup>
                 <InputGroup classname="get_due_date">
                     <InputGroupAddon type="prepend">
@@ -84,16 +75,10 @@ export default class Task extends React.Component {
                     <FormInput name="due_date" type="date" onChange={(event) => {this.setState({due_date: event.target.value})}}/>
                 </InputGroup>
                 <InputGroup classname="get_grade">
-                    <InputGroupAddon type="prepend">
-                        <InputGroupText>Grade received</InputGroupText>
-                    </InputGroupAddon>
-                    <FormInput name="grade" placeholder="70" onChange={(event) => {this.setState({grade: event.target.value})}}/>
+                    <FormInput name="grade" placeholder="Grade received (eg. 70)" onChange={(event) => {this.setState({grade: event.target.value})}}/>
                 </InputGroup>
                 <InputGroup classname="get_task_type">
-                    <InputGroupAddon type="prepend">
-                        <InputGroupText>Type</InputGroupText>
-                    </InputGroupAddon>
-                    <FormInput name="task_type" placeholder={this.task_type}/>
+                    <FormInput name="task_type" placeholder="Type (Core/Elective)"/>
                     <Dropdown open={this.state.open} toggle={this.toggle}>
                         <DropdownToggle>Select</DropdownToggle>
                             <DropdownMenu>
