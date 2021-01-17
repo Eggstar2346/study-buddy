@@ -23,4 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 client\.eslintcache
-.eslintcache
+\.eslintcache
+client\.eslintcache
+C:\Users\johnl\OneDrive\Desktop\Hack_the_North\study-buddy\client\.eslintcache

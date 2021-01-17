@@ -7,9 +7,11 @@ import {
     Button
   } from "shards-react";
 
+import styles from './Input.module.css';
+
 const Input = props => {
     return (
-        <InputGroup>
+        <InputGroup className={styles.Input}>
             <InputGroupAddon type="prepend">
                 <InputGroupText>{props.type}</InputGroupText>
             </InputGroupAddon>

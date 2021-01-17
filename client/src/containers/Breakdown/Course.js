@@ -26,17 +26,17 @@ const Course = props => {
         setTas([...TAs, newTa]);
     }
 
-    const marks = {
+    const [marks, setMarks] = useState({
         midterm: '30%',
         assignments: '30%',
         final: '40%'
-    }
+    });
 
-    const dates = [
+    const [dates, setDates] = useState([
         {name: 'assign1', date: "Feb 02"},
         {name: 'assign2', date: "Feb 02"},
         {name: 'assign3', date: "Feb 02"}
-    ]
+    ]);
 
     const updateTa = (id, newName, newEmail) => {
         let newTAs = [...TAs];
@@ -69,8 +69,8 @@ const Course = props => {
                         TA={TAs}
                         updateTa={updateTa}
                         />
-                    <MarkBreakdown breakdown={marks}/>
-                    <Dates dates={dates}/>
+                    <MarkBreakdown breakdown={marks} update={setMarks}/>
+                    <Dates dates={dates} update={setDates}/>
                 </CardBody>
             </Card>
         </Col>
