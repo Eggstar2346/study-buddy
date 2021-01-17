@@ -1,5 +1,16 @@
 import React from "react";
-import { FormCheckbox } from "shards-react";
+import { 
+  FormCheckbox,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardImg,
+  CardBody,
+  CardFooter,
+  Button
+} from "shards-react";
+
+import styles from "./RecommendedTasks.module.css";
 
 export default class RecommendedTasks extends React.Component {
   constructor(props) {
@@ -21,31 +32,32 @@ export default class RecommendedTasks extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>Recommended Tasks:</p>
-        <FormCheckbox
+      <Card style={{ maxWidth: "340px" }} className={styles.ToDo}>
+      {/* <CardHeader style={{textAlign: 'center', color: '#0f7e9b', width: "16", height: "16"}}>Recommended Tasks</CardHeader> */}
+      <CardBody>
+      <div id="rec-tasks">
+      <h4 style={{textAlign: 'center', color: '#5e6668'}}>To-do Tasks</h4>
+        <FormCheckbox className={styles.Form}
           checked={this.state.orange}
           onChange={e => this.handleChange(e, "orange")}
         >
-          Orange
+          CSC384 Assignment
         </FormCheckbox>
-        <FormCheckbox
+        <FormCheckbox className={styles.Form}
           checked={this.state.lemon}
           onChange={e => this.handleChange(e, "lemon")}
         >
-          Lemon
+          ECE353 Lab
         </FormCheckbox>
-        <FormCheckbox
+        <FormCheckbox className={styles.Form}
           checked={this.state.kiwi}
           onChange={e => this.handleChange(e, "kiwi")}
         >
-          Kiwi
+          ROB313 Quiz
         </FormCheckbox>
-        <span className="d-block mt-3">
-          <strong>Selected fruits:</strong>{" "}
-          <pre>{JSON.stringify(this.state)}</pre>
-        </span>
       </div>
+      </CardBody>
+    </Card>
     );
   }
 }

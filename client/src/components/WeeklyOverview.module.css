@@ -1,0 +1,48 @@
+.Row {
+    width: 112%;
+    margin-left: 15px;
+}
+
+.Card {
+    max-width: 400px;
+}
+
+.CardHeader {
+    background-color: #e6e5ed;
+}
+
+.CardBody {
+    background-color: #F9F9FA   ;
+}
+
+.Col {
+    margin: auto -15px;
+}
+
+.ESC301 {
+    background-color: #DEEBF1;
+}
+
+.ROB313 {
+    background-color: #F4DFEB;
+}
+
+.CSC384 {
+    background-color: #DDEDEA;
+}
+
+.ECE353 {
+    background-color: #F9EBDD;
+}
+
+.MIE438 {
+    background-color: #FBF3DB;
+}
+
+.AER372 {
+    background-color: #EAE4F2;
+}
+
+.BadgeTime{
+    background-color: #F9F9FA;
+}
