@@ -11,11 +11,11 @@ var pg = require('pg');
 
 // Connect to database.
 const dbConfig = {
-    user: require('./config.json').user || process.env.user,
-    password: require('./config.json').password || process.env.password,
-    host: require('./config.json').host || process.env.host,
-    port: require('./config.json').port || process.env.port,
-    database: require('./config.json').database || process.env.database,
+    user: process.env.USER || require('./config.json').user,
+    password: process.env.PASSWORD || require('./config.json').password,
+    host: process.env.HOST || require('./config.json').host,
+    port: process.env.DBPORT || require('./config.json').port,
+    database: process.env.DATABASE || require('./config.json').database,
     ssl: {
         ca: fs.readFileSync(__dirname + '/trusty-lemur-ca.crt').toString(),
     }
