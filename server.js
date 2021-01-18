@@ -11,11 +11,11 @@ const config = require('./config.json')
 
 // Connect to database.
 const dbConfig = {
-    user: (config) ? config.user : process.env.user,
-    password: (config) ? config.password : process.env.password,
-    host: (config) ? config.host : process.env.host,
-    port: (config) ? config.port : process.env.port,
-    database: (config) ? config.database : process.env.database,
+    user: require('./config.json').user || process.env.user,
+    password: require('./config.json').password || process.env.password,
+    host: require('./config.json').host || process.env.host,
+    port: require('./config.json').port || process.env.port,
+    database: require('./config.json').database || process.env.database,
     ssl: {
         ca: fs.readFileSync(__dirname + '/trusty-lemur-ca.crt').toString(),
     }
