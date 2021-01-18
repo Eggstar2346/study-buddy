@@ -56,9 +56,9 @@ export default class Register extends React.Component {
                         <br/>
                         <FormInput placeholder="Email" onChange={(e) => {this.setState({email: e.target.value})}}/>
                         <br/>
-                        <FormInput placeholder="Password" onChange={(e) => {this.setState({password: e.target.value})}}/>
+                        <FormInput placeholder="Password" type="password" onChange={(e) => {this.setState({password: e.target.value})}}/>
                         <br/>
-                        <FormInput placeholder="Confirm password" onChange={(e) => {this.setState({confpwd: e.target.value})}}/>
+                        <FormInput placeholder="Confirm password" type="password" onChange={(e) => {this.setState({confpwd: e.target.value})}}/>
                         <br/>
                         <ButtonGroup horizontal>
                             <Button theme="light" onClick = {this.onClickLogin}><a href="/login">&larr; Login</a></Button>
