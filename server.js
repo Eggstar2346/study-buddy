@@ -7,7 +7,7 @@ const passport = require('passport');
 var async = require('async');
 var fs = require('fs');
 var pg = require('pg');
-const config = require('./config.json')
+// const config = require('./config.json')
 
 // Connect to database.
 const dbConfig = {
